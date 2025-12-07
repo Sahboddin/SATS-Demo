@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .page-section {
+            display: none;
+        }
+        .page-section.active {
+            display: block;
+        }
+        .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation Bar -->
+    <nav class="bg-blue-700 text-white p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-graduation-cap text-2xl"></i>
+                <span class="text-xl font-bold">Attendance System</span>
+            </div>
+            <div class="nav-links flex space-x-4">
+                <a href="#" class="nav-link px-4 py-2 rounded hover:bg-white hover:bg-opacity-20 transition" data-page="dashboard">
+                    <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
+                </a>
+                <a href="#" class="nav-link px-4 py-2 rounded hover:bg-white hover:bg-opacity-20 transition" data-page="courses">
+                    <i class="fas fa-book mr-2"></i>Courses
+                </a>
+                <a href="#" class="nav-link px-4 py-2 rounded hover:bg-white hover:bg-opacity-20 transition" data-page="attendance">
+                    <i class="fas fa-calendar-check mr-2"></i>Attendance
+                </a>
+                <a href="#" class="nav-link px-4 py-2 rounded hover:bg-white hover:bg-opacity-20 transition" data-page="reports">
+                    <i class="fas fa-chart-bar mr-2"></i>Reports
+                </a>
+                <a href="#" class="nav-link px-4 py-2 rounded hover:bg-white hover:bg-opacity-20 transition" data-page="students">
+                    <i class="fas fa-users mr-2"></i>Students
+                </a>
+                <a href="#" class="nav-link px-4 py-2 rounded hover:bg-white hover:bg-opacity-20 transition" data-page="teachers">
+                    <i class="fas fa-chalkboard-teacher mr-2"></i>Teachers
+                </a>
+            </div>
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-user-circle text-2xl"></i>
+                <span>Admin</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-6">
+        <!-- Dashboard Page -->
+        <section id="dashboard" class="page-section active">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">Dashboard</h1>
+            
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                    <div class="flex items-center">
+                        <div class="bg-blue-100 p-4 rounded-full mr-4">
+                            <i class="fas fa-users text-blue-600 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-gray-600 text-sm">TOTAL STUDENTS</h3>
+                            <p class="text-2xl font-bold text-gray-800">245</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                    <div class="flex items-center">
+                        <div class="bg-green-100 p-4 rounded-full mr-4">
+                            <i class="fas fa-desktop text-green-600 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-gray-600 text-sm">TOTAL CLASSES</h3>
+                            <p class="text-2xl font-bold text-gray-800">12</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                    <div class="flex items-center">
+                        <div class="bg-orange-100 p-4 rounded-full mr-4">
+                            <i class="fas fa-calendar-check text-orange-600 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-gray-600 text-sm">TODAY'S ATTENDANCE</h3>
+                            <p class="text-2xl font-bold text-gray-800">75%</p>
+                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                <div class="bg-orange-600 h-2 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                    <div class="flex items-center">
+                        <div class="bg-red-100 p-4 rounded-full mr-4">
+                            <i class="fas fa-exclamation-triangle text-red-600 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-gray-600 text-sm">PENDING REPORTS</h3>
+                            <p class="text-2xl font-bold text-gray-800">3</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Weekly Attendance Chart -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Weekly Attendance Overview</h2>
+                <div class="relative h-64">
+                    <div class="absolute inset-0 flex items-end justify-around px-8">
+                        <div class="flex flex-col items-center">
+                            <div class="bg-blue-600 w-16 rounded-t" style="height: 85%"></div>
+                            <span class="mt-2 text-sm text-gray-600">Mon</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="bg-blue-600 w-16 rounded-t" style="height: 75%"></div>
+                            <span class="mt-2 text-sm text-gray-600">Tue</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="bg-blue-600 w-16 rounded-t" style="height: 90%"></div>
+                            <span class="mt-2 text-sm text-gray-600">Wed</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="bg-blue-600 w-16 rounded-t" style="height: 65%"></div>
+                            <span class="mt-2 text-sm text-gray-600">Thu</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="bg-blue-600 w-16 rounded-t" style="height: 70%"></div>
+                            <span class="mt-2 text-sm text-gray-600">Fri</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Courses Page -->
+        <section id="courses" class="page-section">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">Courses</h1>
+            
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-gray-800">All Courses</h2>
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                        <i class="fas fa-plus mr-2"></i>Add New Course
+                    </button>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-3 text-left">Course Code</th>
+                                <th class="px-4 py-3 text-left">Course Name</th>
+                                <th class="px-4 py-3 text-left">Instructor</th>
+                                <th class="px-4 py-3 text-left">Schedule</th>
+                                <th class="px-4 py-3 text-left">Students</th>
+                                <th class="px-4 py-3 text-left">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">CS101</td>
+                                <td class="px-4 py-3">Introduction to Computer Science</td>
+                                <td class="px-4 py-3">Dr. John Smith</td>
+                                <td class="px-4 py-3">Mon, Wed 9:00 AM</td>
+                                <td class="px-4 py-3">45</td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:text-blue-800 mr-2"><i class="fas fa-edit"></i></button>
+                                    <button class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">MATH201</td>
+                                <td class="px-4 py-3">Calculus II</td>
+                                <td class="px-4 py-3">Prof. Sarah Johnson</td>
+                                <td class="px-4 py-3">Tue, Thu 10:00 AM</td>
+                                <td class="px-4 py-3">38</td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:text-blue-800 mr-2"><i class="fas fa-edit"></i></button>
+                                    <button class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">ENG301</td>
+                                <td class="px-4 py-3">English Literature</td>
+                                <td class="px-4 py-3">Dr. Emily Brown</td>
+                                <td class="px-4 py-3">Mon, Wed, Fri 2:00 PM</td>
+                                <td class="px-4 py-3">32</td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:text-blue-800 mr-2"><i class="fas fa-edit"></i></button>
+                                    <button class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">PHY102</td>
+                                <td class="px-4 py-3">Physics Fundamentals</td>
+                                <td class="px-4 py-3">Dr. Michael Davis</td>
+                                <td class="px-4 py-3">Tue, Thu 1:00 PM</td>
+                                <td class="px-4 py-3">28</td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:text-blue-800 mr-2"><i class="fas fa-edit"></i></button>
+                                    <button class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Attendance Page -->
+        <section id="attendance" class="page-section">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">Attendance Management</h1>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                <div class="lg:col-span-2 bg-white rounded-lg shadow-md p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-bold text-gray-800">Mark Attendance</h2>
+                        <div class="flex space-x-2">
+                            <input type="date" class="border rounded px-3 py-2" value="2023-12-07">
+                            <select class="border rounded px-3 py-2">
+                                <option>CS101 - Introduction to CS</option>
+                                <option>MATH201 - Calculus II</option>
+                                <option>ENG301 - English Literature</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-3 text-left">Student ID</th>
+                                    <th class="px-4 py-3 text-left">Name</th>
+                                    <th class="px-4 py-3 text-center">Present</th>
+                                    <th class="px-4 py-3 text-center">Absent</th>
+                                    <th class="px-4 py-3 text-center">Late</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3">ST001</td>
+                                    <td class="px-4 py-3">Alice Johnson</td>
+                                    <td class="px-4 py-3 text-center"><input type="radio" name="ST001" checked></td>
+                                    <td class="px-4 py-3 text-center"><input type="radio" name="ST001"></td>
+                                    <td class="px-4 py-3 text-center"><input type="radio" name="ST001"></td>
+                                </tr>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3">ST002</td>
+                                    <td class="px-4 py-3">Bob Williams</td>
+                                    <td class="px-4 py-3 text-center"><input type="radio" name="ST002"></td>
+                                    <td class="px-4 py-3 text-center"><input type="radio" name="ST002" checked></td>
+                                    <td class="px-4 py-3 text-center"><input type="radio" name="ST002"></td>
+                                </tr>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3">ST003</td>
+                                    <td class="px-4 py-3">Charlie Brown</td>
+                                    <td class="px-4 py-3 text-center"><input type="radio" name="ST003"></td>
+                                    <td class="px-4 py-3 text-center"><input type="radio" name="ST003"></td>
+                                    <td class="px-4 py-3 text-center"><input type="radio" name="ST003" checked></td>
+                                </tr>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3">ST004</td>
+                                    <td class="px-4 py-3">Diana Miller</td>
+                                    <td class="px-4 py-3 text-center"><input type="radio" name="ST004" checked></td>
+                                    <td class="px-4 py-3 text-center"><input type="radio" name="ST004"></td>
+                                    <td class="px-4 py-3 text-center"><input type="radio" name="ST004"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mt-4 flex justify-end">
+                        <button class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+                            Save Attendance
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">Today's Summary</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center p-3 bg-green-50 rounded">
+                            <span class="text-green-700">Present</span>
+                            <span class="font-bold text-green-700">28</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-red-50 rounded">
+                            <span class="text-red-700">Absent</span>
+                            <span class="font-bold text-red-700">5</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-yellow-50 rounded">
+                            <span class="text-yellow-700">Late</span>
+                            <span class="font-bold text-yellow-700">3</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-blue-50 rounded">
+                            <span class="text-blue-700">Total</span>
+                            <span class="font-bold text-blue-700">36</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reports Page -->
+        <section id="reports" class="page-section">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">Reports</h1>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Monthly Attendance Report</h2>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Total Classes</span>
+                            <span class="font-bold">48</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Average Attendance</span>
+                            <span class="font-bold text-green-600">82%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Highest Attendance</span>
+                            <span class="font-bold">95% (Week 2)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Lowest Attendance</span>
+                            <span class="font-bold text-red-600">68% (Week 4)</span>
+                        </div>
+                    </div>
+                    <button class="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+                        <i class="fas fa-download mr-2"></i>Download Report
+                    </button>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Student Performance</h2>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Excellent (90-100%)</span>
+                            <span class="font-bold text-green-600">45 students</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Good (75-89%)</span>
+                            <span class="font-bold text-blue-600">120 students</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Average (60-74%)</span>
+                            <span class="font-bold text-yellow-600">65 students</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Poor (<60%)</span>
+                            <span class="font-bold text-red-600">15 students</span>
+                        </div>
+                    </div>
+                    <button class="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+                        <i class="fas fa-download mr-2"></i>Download Report
+                    </button>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Recent Reports</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-3 text-left">Report Name</th>
+                                <th class="px-4 py-3 text-left">Generated On</th>
+                                <th class="px-4 py-3 text-left">Generated By</th>
+                                <th class="px-4 py-3 text-left">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">November Monthly Report</td>
+                                <td class="px-4 py-3">2023-12-01</td>
+                                <td class="px-4 py-3">Admin</td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:text-blue-800 mr-2"><i class="fas fa-eye"></i></button>
+                                    <button class="text-green-600 hover:text-green-800"><i class="fas fa-download"></i></button>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">CS101 Course Report</td>
+                                <td class="px-4 py-3">2023-11-28</td>
+                                <td class="px-4 py-3">Dr. John Smith</td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:text-blue-800 mr-2"><i class="fas fa-eye"></i></button>
+                                    <button class="text-green-600 hover:text-green-800"><i class="fas fa-download"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Students Page -->
+        <section id="students" class="page-section">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">Students Management</h1>
+            
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-gray-800">All Students</h2>
+                    <div class="flex space-x-2">
+                        <input type="text" placeholder="Search students..." class="border rounded px-3 py-2">
+                        <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                            <i class="fas fa-plus mr-2"></i>Add Student
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-3 text-left">ID</th>
+                                <th class="px-4 py-3 text-left">Name</th>
+                                <th class="px-4 py-3 text-left">Email</th>
+                                <th class="px-4 py-3 text-left">Phone</th>
+                                <th class="px-4 py-3 text-left">Course</th>
+                                <th class="px-4 py-3 text-left">Attendance</th>
+                                <th class="px-4 py-3 text-left">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">ST001</td>
+                                <td class="px-4 py-3">Alice Johnson</td>
+                                <td class="px-4 py-3">alice@email.com</td>
+                                <td class="px-4 py-3">+1234567890</td>
+                                <td class="px-4 py-3">CS101</td>
+                                <td class="px-4 py-3">
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">92%</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:text-blue-800 mr-2"><i class="fas fa-eye"></i></button>
+                                    <button class="text-green-600 hover:text-green-800 mr-2"><i class="fas fa-edit"></i></button>
+                                    <button class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">ST002</td>
+                                <td class="px-4 py-3">Bob Williams</td>
+                                <td class="px-4 py-3">bob@email.com</td>
+                                <td class="px-4 py-3">+1234567891</td>
+                                <td class="px-4 py-3">MATH201</td>
+                                <td class="px-4 py-3">
+                                    <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-sm">78%</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:text-blue-800 mr-2"><i class="fas fa-eye"></i></button>
+                                    <button class="text-green-600 hover:text-green-800 mr-2"><i class="fas fa-edit"></i></button>
+                                    <button class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">ST003</td>
+                                <td class="px-4 py-3">Charlie Brown</td>
+                                <td class="px-4 py-3">charlie@email.com</td>
+                                <td class="px-4 py-3">+1234567892</td>
+                                <td class="px-4 py-3">ENG301</td>
+                                <td class="px-4 py-3">
+                                    <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-sm">55%</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:text-blue-800 mr-2"><i class="fas fa-eye"></i></button>
+                                    <button class="text-green-600 hover:text-green-800 mr-2"><i class="fas fa-edit"></i></button>
+                                    <button class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">ST004</td>
+                                <td class="px-4 py-3">Diana Miller</td>
+                                <td class="px-4 py-3">diana@email.com</td>
+                                <td class="px-4 py-3">+1234567893</td>
+                                <td class="px-4 py-3">PHY102</td>
+                                <td class="px-4 py-3">
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">88%</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:text-blue-800 mr-2"><i class="fas fa-eye"></i></button>
+                                    <button class="text-green-600 hover:text-green-800 mr-2"><i class="fas fa-edit"></i></button>
+                                    <button class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Teachers Page -->
+        <section id="teachers" class="page-section">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">Teachers Management</h1>
+            
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-gray-800">All Teachers</h2>
+                    <div class="flex space-x-2">
+                        <input type="text" placeholder="Search teachers..." class="border rounded px-3 py-2">
+                        <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                            <i class="fas fa-plus mr-2"></i>Add Teacher
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-3 text-left">ID</th>
+                                <th class="px-4 py-3 text-left">Name</th>
+                                <th class="px-4 py-3 text-left">Email</th>
+                                <th class="px-4 py-3 text-left">Department</th>
+                                <th class="px-4 py-3 text-left">Courses</th>
+                                <th class="px-4 py-3 text-left">Students</th>
+                                <th class="px-4 py-3 text-left">Status</th>
+                                <th class="px-4 py-3 text-left">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">TC001</td>
+                                <td class="px-4 py-3">Dr. John Smith</td>
+                                <td class="px-4 py-3">john.smith@school.edu</td>
+                                <td class="px-4 py-3">Computer Science</td>
+                                <td class="px-4 py-3">CS101, CS201</td>
+                                <td class="px-4 py-3">83</td>
+                                <td class="px-4 py-3">
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">Active</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:text-blue-800 mr-2"><i class="fas fa-eye"></i></button>
+                                    <button class="text-green-600 hover:text-green-800 mr-2"><i class="fas fa-edit"></i></button>
+                                    <button class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">TC002</td>
+                                <td class="px-4 py-3">Prof. Sarah Johnson</td>
+                                <td class="px-4 py-3">sarah.j@school.edu</td>
+                                <td class="px-4 py-3">Mathematics</td>
+                                <td class="px-4 py-3">MATH201, MATH301</td>
+                                <td class="px-4 py-3">72</td>
+                                <td class="px-4 py-3">
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">Active</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:text-blue-800 mr-2"><i class="fas fa-eye"></i></button>
+                                    <button class="text-green-600 hover:text-green-800 mr-2"><i class="fas fa-edit"></i></button>
+                                    <button class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">TC003</td>
+                                <td class="px-4 py-3">Dr. Emily Brown</td>
+                                <td class="px-4 py-3">emily.b@school.edu</td>
+                                <td class="px-4 py-3">English</td>
+                                <td class="px-4 py-3">ENG301, ENG401</td>
+                                <td class="px-4 py-3">56</td>
+                                <td class="px-4 py-3">
+                                    <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-sm">On Leave</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:text-blue-800 mr-2"><i class="fas fa-eye"></i></button>
+                                    <button class="text-green-600 hover:text-green-800 mr-2"><i class="fas fa-edit"></i></button>
+                                    <button class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">TC004</td>
+                                <td class="px-4 py-3">Dr. Michael Davis</td>
+                                <td class="px-4 py-3">michael.d@school.edu</td>
+                                <td class="px-4 py-3">Physics</td>
+                                <td class="px-4 py-3">PHY102, PHY202</td>
+                                <td class="px-4 py-3">48</td>
+                                <td class="px-4 py-3">
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">Active</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:text-blue-800 mr-2"><i class="fas fa-eye"></i></button>
+                                    <button class="text-green-600 hover:text-green-800 mr-2"><i class="fas fa-edit"></i></button>
+                                    <button class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-6 mt-12">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2023 Attendance System. All rights reserved.</p>
+            <div class="mt-4 space-x-4">
+                <a href="#" class="hover:text-blue-400 transition">Privacy Policy</a>
+                <a href="#" class="hover:text-blue-400 transition">Terms of Service</a>
+                <a href="#" class="hover:text-blue-400 transition">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pageSections = document.querySelectorAll('.page-section');
+            
+            // Set initial active state
+            document.querySelector('[data-page="dashboard"]').classList.add('active');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links and sections
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    pageSections.forEach(s => s.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Show corresponding section
+                    const pageId = this.getAttribute('data-page');
+                    document.getElementById(pageId).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
